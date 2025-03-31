@@ -2,15 +2,15 @@
 
 namespace App\Livewire\Dealership;
 
-use App\Livewire\Dealership\Traits\HasDealershipQuery;
 use App\Livewire\Dealership\Traits\Searchable;
+use App\Models\Dealership;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Index extends Component
 {
-    use HasDealershipQuery, Searchable, WithPagination;
+    use Searchable, WithPagination;
 
     public $sortBy = 'name';
     public $sortDirection = 'asc';
@@ -34,18 +34,42 @@ class Index extends Component
 
     public function render(): View
     {
-        $query = $this->dealerQuery()->with('users');
+        $cacheKey = $this->generateCacheKey();
 
-        $query = $this->applySearch($query);
+        $dealerships = cache()->remember($cacheKey, now()->addMinutes(30), function () {
+            $query = $this->dealerQuery()->with('users');
+            $query = $this->applySearch($query);
+            $query = $this->filters->apply($query);
 
-        $query = $this->filters->apply($query);
-
-        $dealerships = $query
-            ->tap(fn ($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
-            ->paginate(10);
+            return $query
+                ->tap(fn ($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
+                ->paginate(10);
+        });
 
         return view('livewire.dealership.index', [
             'dealerships' => $dealerships,
         ]);
+    }
+
+    private function generateCacheKey(): string
+    {
+        return sprintf(
+            'dealerships.%s.%s.%s.%s.%s.%s',
+            auth()->id(),
+            $this->page ?? 1,
+            $this->search ?? '',
+            $this->sortBy,
+            $this->sortDirection,
+            md5(json_encode($this->filters, JSON_THROW_ON_ERROR))
+        );
+    }
+
+    private function dealerQuery()
+    {
+        if (! auth()->user()->is_admin) {
+            return auth()->user()->dealerships();
+        }
+
+        return Dealership::query();
     }
 }

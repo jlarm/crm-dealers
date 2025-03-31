@@ -7,15 +7,14 @@
         </flux:radio.group>
         <div class="flex gap-x-3">
             <flux:input wire:model.live="search" type="search" icon="magnifying-glass" placeholder="Search..." />
-            <flux:checkbox.group variant="cards" class="w-[400px] flex-col">
-                <flux:checkbox wire:model.live="filters.dev" class="items-center !p-2" value="newsletter">
-                    <flux:checkbox.indicator />
-
-                    <div class="flex-1">
-                        <flux:heading class="leading-4">In Development</flux:heading>
-                    </div>
-                </flux:checkbox>
-            </flux:checkbox.group>
+            <flux:button>
+                <div class="flex items-center gap-x-2">
+                    <flux:checkbox wire:model.live="filters.dev" value="newsletter">
+                        <flux:checkbox.indicator />
+                    </flux:checkbox>
+                    In Development
+                </div>
+            </flux:button>
             <flux:dropdown>
                 <flux:button icon-trailing="chevron-down">
                     @if (! empty($filters->rating))
