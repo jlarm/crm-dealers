@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use App\Enum\DevStatus;
+use App\Enum\Rating;
+use App\Enum\Status;
+use App\Enum\Type;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,6 +34,9 @@ class Dealership extends Model
     protected $casts = [
         'in_development' => 'boolean',
         'dev_status' => DevStatus::class,
+        'status' => Status::class,
+        'rating' => Rating::class,
+        'type' => Type::class,
     ];
 
     protected static function boot(): void
@@ -76,17 +82,5 @@ class Dealership extends Model
     public function getTotalStoreCountAttribute(): int
     {
         return $this->stores()->count() + 1;
-    }
-
-    public function getListType(): string
-    {
-        $types = [
-            'Automotive' => 'f694f7fd-dbb9-489d-bced-03e2fbee78af',
-            'RV' => '2d97d6ea-90a0-4b49-90df-980a258884b2',
-            'Motorsports' => 'd2a68b06-08e4-4e76-a714-151e07a5a907',
-            'Maritime' => '59c46030-5429-4ffd-a192-42926b9b17eb',
-        ];
-
-        return $types[$this->type] ?? 'default_value';
     }
 }

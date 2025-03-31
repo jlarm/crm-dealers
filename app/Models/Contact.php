@@ -35,7 +35,7 @@ class Contact extends Model
         });
 
         static::deleted(function ($model) {
-            $list = Mailcoach::emailList($model->dealership->getListType());
+            $list = Mailcoach::emailList($model->dealership->type->value);
             $sub = $list->subscriber($model->email);
             if ($sub) {
                 $sub->delete();
@@ -55,7 +55,7 @@ class Contact extends Model
 
     protected function handleSavedEvent(): void
     {
-        $list = Mailcoach::emailList($this->dealership->getListType());
+        $list = Mailcoach::emailList($this->dealership->type->value);
 
         if ($list->subscriber($this->email) === null) {
             return;
@@ -82,7 +82,7 @@ class Contact extends Model
             $tags[] = auth()->user()->name;
 
             $sub = Mailcoach::createSubscriber(
-                emailListUuid: $this->dealership->getListType(),
+                emailListUuid: $this->dealership->type->value,
                 attributes: [
                     'first_name' => $first_name,
                     'last_name' => $last_name,
