@@ -17,6 +17,10 @@ Route::get('dealerships/{dealership}', \App\Livewire\Dealership\Show::class)
     ->middleware(['auth', 'verified'])
     ->name('dealership.show');
 
+Route::get('dealerships/{dealership}/stores', \App\Livewire\Dealership\StoreIndex::class)
+    ->middleware(['auth', 'verified'])
+    ->name('dealership.stores');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 

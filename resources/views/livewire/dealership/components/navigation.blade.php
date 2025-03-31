@@ -9,7 +9,7 @@
     </flux:navlist.item>
     <flux:navlist.item
         wire:navigate
-        {{-- href="{{ route('dealership.stores', $dealership) }}" --}}
+        href="{{ route('dealership.stores', $dealership) }}"
         icon="puzzle-piece"
         {{-- :current="request()->routeIs('dealership.stores', $dealership)" --}}
     >

@@ -8,7 +8,7 @@ enum DevStatus: string
     case REACHED_OUT = 'reached_out';
     case IN_CONTACT = 'in_contact';
 
-    public function label(): ?string
+    public function label(): string
     {
         return match ($this) {
             self::NO_CONTACT => 'No Contact',

@@ -47,7 +47,7 @@
                         <flux:fieldset>
                             <flux:legend>Status</flux:legend>
                             <flux:switch
-                                wire:model="devStatus"
+                                wire:model.live="devStatus"
                                 label="In Development"
                                 description="Turn on In Development when actively working on this dealership with the Sales Dev Rep."
                             />

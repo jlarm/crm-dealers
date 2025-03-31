@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enum\DevStatus;
 use App\Enum\Rating;
 use App\Enum\State;
 use App\Enum\Status;
@@ -35,7 +34,6 @@ class Dealership extends Model
     protected $casts = [
         'in_development' => 'boolean',
         'state' => State::class,
-        'dev_status' => DevStatus::class,
         'status' => Status::class,
         'rating' => Rating::class,
         'type' => Type::class,
