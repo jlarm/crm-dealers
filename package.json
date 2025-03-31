@@ -3,7 +3,9 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "prepare": "husky install",
+        "format": "npx prettier --write resources/"
     },
     "dependencies": {
         "@tailwindcss/vite": "^4.0.7",
@@ -18,5 +20,9 @@
         "@rollup/rollup-linux-x64-gnu": "4.9.5",
         "@tailwindcss/oxide-linux-x64-gnu": "^4.0.1",
         "lightningcss-linux-x64-gnu": "^1.29.1"
+    },
+    "devDependencies": {
+        "husky": "^8.0.0",
+        "lint-staged": "^15.5.0"
     }
 }
