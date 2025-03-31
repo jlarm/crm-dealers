@@ -16,7 +16,7 @@ class Filters extends Form
     use HasDealershipQuery;
 
     #[Url]
-    public FilterStatus $status = FilterStatus::ALL;
+    public FilterStatus $status = FilterStatus::ACTIVE;
 
     #[Url(as: 'ratings')]
     public array $rating = [];

@@ -18,7 +18,7 @@
                     :current="request()->routeIs('dashboard')"
                     wire:navigate
                 >
-                    {{ __('Dashboard') }}
+                    {{ __('Dealerships') }}
                 </flux:navbar.item>
             </flux:navbar>
 
