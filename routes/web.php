@@ -13,6 +13,10 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('dealerships/{dealership}', \App\Livewire\Dealership\Show::class)
+    ->middleware(['auth', 'verified'])
+    ->name('dealership.show');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
