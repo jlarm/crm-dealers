@@ -7,6 +7,10 @@
         </flux:radio.group>
         <div class="flex gap-x-3">
             <flux:input wire:model.live="search" type="search" icon="magnifying-glass" placeholder="Search..." />
+            @if (! empty($filters->rating) || ! empty($filters->types) || ! empty($filters->users || $filters->dev === true))
+                <flux:button icon="x-mark" variant="filled" wire:click="clearFilters">Clear</flux:button>
+            @endif
+
             <flux:button>
                 <div class="flex items-center gap-x-2">
                     <flux:checkbox wire:model.live="filters.dev" value="newsletter">
@@ -66,9 +70,6 @@
                     </flux:checkbox.group>
                 </flux:menu>
             </flux:dropdown>
-            @if (! empty($filters->rating) || ! empty($filters->types) || ! empty($filters->users || $filters->dev === true))
-                <flux:button icon="x-mark" variant="filled" wire:click="clearFilters">Clear</flux:button>
-            @endif
         </div>
         <flux:table :paginate="$dealerships">
             <flux:table.columns>

@@ -29,6 +29,6 @@
         </flux:avatar.group>
     </flux:table.cell>
     <flux:table.cell>
-        <a wire:navigate href="{{ route('dealership.show', $dealership) }}">View</a>
+        <a wire:navigate.hover href="{{ route('dealership.show', $dealership) }}">View</a>
     </flux:table.cell>
 </flux:table.row>

@@ -6,31 +6,15 @@ use App\Enum\Rating;
 use App\Enum\State;
 use App\Enum\Status;
 use App\Enum\Type;
+use App\Observers\DealershipObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[ObservedBy(DealershipObserver::class)]
 class Dealership extends Model
 {
-    protected $fillable = [
-        'user_id',
-        'name',
-        'address',
-        'city',
-        'state',
-        'zip_code',
-        'phone',
-        'email',
-        'current_solution_name',
-        'current_solution_use',
-        'notes',
-        'status',
-        'rating',
-        'type',
-        'in_development',
-        'dev_status',
-    ];
-
     protected $casts = [
         'in_development' => 'boolean',
         'state' => State::class,

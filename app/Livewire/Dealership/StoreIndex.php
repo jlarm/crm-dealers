@@ -5,6 +5,7 @@ namespace App\Livewire\Dealership;
 use App\Models\Dealership;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,7 +15,7 @@ class StoreIndex extends Component
 
     public Dealership $dealership;
     public $sortBy = 'name';
-    public $sortDirection = 'desc';
+    public $sortDirection = 'asc';
 
     public function sort($column): void
     {
@@ -34,8 +35,10 @@ class StoreIndex extends Component
             ->paginate(15);
     }
 
+    #[On('refreshStores')]
     public function render(): View
     {
-        return view('livewire.dealership.store-index');
+        return view('livewire.dealership.store-index')
+            ->title($this->dealership->name . ' Stores');
     }
 }
